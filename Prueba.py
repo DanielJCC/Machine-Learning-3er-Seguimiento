@@ -38,31 +38,30 @@ plt.show()
 # print(np.sum(first_image!=0.0))
 
 
-# def corr_feature_detect(data, threshold):
-#     corrmat = data.corr()
-#     corrmat = corrmat.abs().unstack() # absolute value of corr coef
-#     corrmat = corrmat.sort_values(ascending=False)
-#     corrmat = corrmat[corrmat >= threshold]
-#     corrmat = corrmat[corrmat < 1] # remove the digonal
-#     corrmat = pd.DataFrame(corrmat).reset_index()
-#     corrmat.columns = ['feature1', 'feature2', 'corr']
+def corr_feature_detect(data, threshold):
+    corrmat = data.corr()
+    corrmat = corrmat.abs().unstack() # absolute value of corr coef
+    corrmat = corrmat.sort_values(ascending=False)
+    corrmat = corrmat[corrmat >= threshold]
+    corrmat = corrmat[corrmat < 1] # remove the digonal
+    corrmat = pd.DataFrame(corrmat).reset_index()
+    corrmat.columns = ['feature1', 'feature2', 'corr']
    
-#     grouped_feature_ls = []
-#     correlated_groups = []
+    grouped_feature_ls = []
+    correlated_groups = []
     
-#     for feature in corrmat.feature1.unique():
-#         if feature not in grouped_feature_ls:
+    for feature in corrmat.feature1.unique():
+        if feature not in grouped_feature_ls:
     
-#             # find all features correlated to a single feature
-#             correlated_block = corrmat[corrmat.feature1 == feature]
-#             grouped_feature_ls = grouped_feature_ls + list(
-#                 correlated_block.feature2.unique()) + [feature]
+            # find all features correlated to a single feature
+            correlated_block = corrmat[corrmat.feature1 == feature]
+            grouped_feature_ls = grouped_feature_ls + list(
+                correlated_block.feature2.unique()) + [feature]
     
-#             # append the block of features to the list
-#             correlated_groups.append(correlated_block)
-#         print("Prueba")
-#     return correlated_groups
+            # append the block of features to the list
+            correlated_groups.append(correlated_block)
+    return correlated_groups
 
-# corr = corr_feature_detect(data=X,threshold=0.95)
-# for i in corr:
-#     print(i,'\n')
+corr = corr_feature_detect(data=X,threshold=0.95)
+for i in corr:
+    print(i,'\n')
