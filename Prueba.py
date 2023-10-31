@@ -39,7 +39,7 @@ plt.show()
 
 
 def corr_feature_detect(data, threshold):
-    corrmat = data.corr()
+    corrmat = data.corr(method = 'spearman')
     corrmat = corrmat.abs().unstack() # absolute value of corr coef
     corrmat = corrmat.sort_values(ascending=False)
     corrmat = corrmat[corrmat >= threshold]
